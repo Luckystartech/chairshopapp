@@ -1,10 +1,9 @@
 import 'package:chairshopapp/constants.dart';
 import 'package:chairshopapp/models/product.dart';
+import 'package:chairshopapp/screens/details/product_details.dart';
+import 'package:chairshopapp/screens/home/components/bottom_navigation.dart';
 import 'package:chairshopapp/screens/home/components/item_card.dart';
-import 'package:chairshopapp/screens/catalog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -50,21 +49,27 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                   // Centered button
-                  Container(
-                    width: 150,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: kBackgroundColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: const Center(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        'Go to catalog',
-                        style: TextStyle(
-                            color: kTextColor,
-                            fontFamily: kFontFamily,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const BottomNavigation()));
+                    },
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: kBackgroundColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          'Go to catalog',
+                          style: TextStyle(
+                              color: kTextColor,
+                              fontFamily: kFontFamily,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                   ),
@@ -102,7 +107,8 @@ class HomeScreen extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const Catalog()));
+                                          builder: (context) =>
+                                              const BottomNavigation()));
                                 },
                                 child: const Text(
                                   'View all',
@@ -120,10 +126,19 @@ class HomeScreen extends StatelessWidget {
                           Expanded(
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: product.length,
+                                itemCount: products.length,
                                 itemBuilder: (context, index) {
                                   return ItemCard(
-                                    product: product[index],
+                                    product: products[index],
+                                    width: 200,
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductDetails(
+                                                    product: products[index],
+                                                  )));
+                                    },
                                   );
                                 }),
                           ),

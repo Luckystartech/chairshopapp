@@ -15,7 +15,7 @@ class Product {
   });
 }
 
-List<Product> product = [
+List<Product> products = [
   Product(
     id: 1,
     imageList: ['assets/images/chair_3.jpg', 'assets/images/chair_5.jpg'],
